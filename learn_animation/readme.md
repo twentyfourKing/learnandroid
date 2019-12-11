@@ -1,4 +1,5 @@
 ##动画分类
+
 Property animation
 View animation  
 > Tween animation
@@ -109,3 +110,8 @@ xml文件必须要有一个<set>或者 <objectAnimator>或者<valueAnimator>作�
         set.setTarget(myObject);
         set.start();
 ```
+
+//属性动画参考：下面的总结很精准
+https://blog.csdn.net/dmk877/article/details/52011155
+https://blog.csdn.net/dmk877/article/details/76231865
+https://www.jianshu.com/p/417988fd7033

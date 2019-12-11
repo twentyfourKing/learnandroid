@@ -9,6 +9,7 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Property;
 import android.view.View;
 import android.widget.TextView;
 
@@ -35,8 +36,9 @@ public class PropertyAnimationActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         animator =  AnimatorInflater.loadAnimator(myContext,R.animator.property_animator_1);
-        ObjectAnimator animator PRo
         animator.setTarget(mView1);
+
+        ObjectAnimator.ofFloat()
     }
 
     @OnClick({
