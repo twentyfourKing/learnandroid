@@ -1,0 +1,2 @@
+include ':app', ':library1', ':library2', ':library3', ':library4'
+rootProject.name='learn_gradle_dependency'

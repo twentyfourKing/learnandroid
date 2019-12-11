@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set/>
+
+<!--  R.animator.filename   通过这个可以引用到资源-->
+<!--<set xmlns:android="http://schemas.android.com/apk/res/android"-->
+
+<!--    android:ordering="together | sequentially">-->
+
+<!--    <objectAnimator-->
+<!--        android:duration="int"-->
+<!--        android:propertyName="string"-->
+<!--        android:repeatCount="int"-->
+<!--        android:repeatMode="repeat | reverse"-->
+<!--        android:startOffset="int"-->
+<!--        android:valueFrom="float | int | color"-->
+<!--        android:valueTo="float | int | color"-->
+<!--        android:valueType="intType | floatType" />-->
+
+<!--    <animator-->
+<!--        android:duration="int"-->
+<!--        android:repeatCount="int"-->
+<!--        android:repeatMode="repeat | reverse"-->
+<!--        android:startOffset="int"-->
+<!--        android:valueFrom="float | int | color"-->
+<!--        android:valueTo="float | int | color"-->
+<!--        android:valueType="intType | floatType" />-->
+<!--</set>-->
