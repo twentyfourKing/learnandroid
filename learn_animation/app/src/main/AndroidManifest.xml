@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".PropertyAnimationActivity" />
+        <activity android:name=".PropertyActivity" />
     </application>
 
 </manifest>

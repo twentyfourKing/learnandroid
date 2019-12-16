@@ -1,53 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:padding="5dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tv_by_xml_property_1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/text_bg"
+        android:padding="10dp"
+        android:text="object_xml1" />
 
-        <TextView
-            android:id="@+id/tv_by_xml_property_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/text_bg"
-            android:padding="10dp"
-            android:text="object_xml1" />
-
-        <TextView
-            android:id="@+id/tv_by_xml_property_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="2dp"
-            android:background="@drawable/text_bg"
-            android:padding="10dp"
-            android:text="object_xml2" />
-        <TextView
-            android:id="@+id/tv_reverse"
-            android:layout_marginLeft="2dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/text_bg_1"
-            android:text="复原"
-            android:padding="5dp"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tv_by_xml_property_2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        >
-        <TextView
-            android:id="@+id/tv_by_xml_property_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/text_bg"
-            android:padding="10dp"
-            android:text="object_xml1" />
-    </LinearLayout>
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/tv_by_xml_property_1"
+        android:background="@drawable/text_bg"
+        android:padding="10dp"
+        android:text="object_xml2" />
 
+    <TextView
+        android:id="@+id/tv_reverse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/text_bg_1"
+        android:padding="5dp"
+        android:text="复原" />
+    <TextView
+        android:id="@+id/tv_start_property"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/text_bg_1"
+        android:layout_below="@+id/tv_reverse"
+        android:padding="5dp"
+        android:text="查看property的属性" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/tv_by_xml_property_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_by_xml_property_1"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/text_bg"
+        android:padding="10dp"
+        android:text="object_xml1" />
+
+    <TextView
+        android:id="@+id/tv_by_xml_property_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_by_xml_property_3"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/text_bg"
+        android:padding="10dp"
+        android:text="set_xml1" />
+
+    <TextView
+        android:id="@+id/tv_by_xml_property_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_by_xml_property_3"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/tv_by_xml_property_4"
+        android:background="@drawable/text_bg"
+        android:padding="10dp"
+        android:text="set_xml2" />
+
+    <TextView
+        android:id="@+id/tv_by_xml_property_6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_by_xml_property_3"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/tv_by_xml_property_5"
+        android:background="@drawable/text_bg"
+        android:padding="10dp"
+        android:text="set_xml3" />
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/tv_by_xml_property_6"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorPrimaryDark" />
+
+    <TextView
+        android:id="@+id/tv_by_xml_property_7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view_line"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/text_bg_2"
+        android:padding="10dp"
+        android:text="object1"
+        android:textColor="@color/app_black" />
+
+    <TextView
+        android:id="@+id/tv_by_xml_property_8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view_line"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/tv_by_xml_property_7"
+        android:background="@drawable/text_bg_2"
+        android:padding="10dp"
+        android:text="value1"
+        android:textColor="@color/app_black" />
+
+    <TextView
+        android:id="@+id/tv_by_xml_property_9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view_line"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/tv_by_xml_property_8"
+        android:background="@drawable/text_bg_2"
+        android:padding="10dp"
+        android:text="set1"
+        android:textColor="@color/app_black" />
+
+    <TextView
+        android:id="@+id/tv_by_xml_property_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view_line"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/tv_by_xml_property_9"
+        android:background="@drawable/text_bg_2"
+        android:padding="10dp"
+        android:text="set2"
+        android:textColor="@color/app_black" />
+
+    <TextView
+        android:id="@+id/tv_by_xml_property_11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view_line"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/tv_by_xml_property_10"
+        android:background="@drawable/text_bg_2"
+        android:padding="10dp"
+        android:text="set3"
+        android:textColor="@color/app_black" />
+
+    <TextView
+        android:id="@+id/tv_by_xml_property_12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_by_xml_property_7"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/text_bg_2"
+        android:padding="10dp"
+        android:text="object2"
+        android:textColor="@color/app_black" />
+</RelativeLayout>

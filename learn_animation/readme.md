@@ -1,12 +1,14 @@
-##动画分类
+## 动画分类
 
-Property animation
-View animation  
+Property animation 和 View animation  
+
 > Tween animation
+
 > Frame animation
+
 > [Animation resources](https://developer.android.com/guide/topics/resources/animation-resource)
 
-###Property animation
+### Property animation
 
 ValueAnimator
 
@@ -110,8 +112,3 @@ xml文件必须要有一个<set>或者 <objectAnimator>或者<valueAnimator>作�
         set.setTarget(myObject);
         set.start();
 ```
-
-//属性动画参考：下面的总结很精准
-https://blog.csdn.net/dmk877/article/details/52011155
-https://blog.csdn.net/dmk877/article/details/76231865
-https://www.jianshu.com/p/417988fd7033
