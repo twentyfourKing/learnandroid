@@ -200,6 +200,8 @@ public class PropertyAnimationActivity extends AppCompatActivity {
             mTv1.setAlpha(1.0f);
             mTv2.setAlpha(1.0f);
 
+            mTv3.setAlpha(1.0f);
+
             mTv4.setAlpha(1.0f);
             mTv4.setX(mTv4LocationX);
             mTv4.setY(mTv4LocationY);
