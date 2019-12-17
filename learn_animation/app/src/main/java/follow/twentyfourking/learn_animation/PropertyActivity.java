@@ -53,13 +53,11 @@ public class PropertyActivity extends AppCompatActivity {
     private int mDuration = 3000;
 
     private float mTv12LocationY;
-    private Context mContext;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_property_name);
-        mContext = this;
         ButterKnife.bind(this);
 
 
