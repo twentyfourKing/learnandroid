@@ -8,6 +8,8 @@ import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,6 +22,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void jumpToProperty(View view){
         startActivity(new Intent(this,PropertyAnimationActivity.class));
+        TextView textView;
+        Animation animation ;
+        animation.setAnimationListener();
+        textView.startAnimation();
+
+
+
     }
 
 }

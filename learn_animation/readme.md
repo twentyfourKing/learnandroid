@@ -1,18 +1,35 @@
 动画分类
-==
+===
 
 Property animation 和 View animation  
 
 > [Animation resources](https://developer.android.com/guide/topics/resources/animation-resource)
 
-### View animation  
-> Tween animation
+## View animation
+![视图动画-类结构](https://github.com/twentyfourKing/learnandroid/blob/master/learn_animation/readme/img/img_2.png)
 
-> Frame animation
+1) Tween animation
+
+2) Frame animation
+
+> AnimationSet 可以理解位动画集合器，它可以把多个动画集合在一起运行
+
+> AnimationUtils  用于从xml文件加载动画
+
+> AnimationListener 动画监听器
+
+### 一、视图动画的使用
+
+1）通过xml加载
+
+
+
+2) 通过代码配置
 
 
 
 ## Property animation
+![属性动画-类结构](https://github.com/twentyfourKing/learnandroid/blob/master/learn_animation/readme/img/img_3.png)
 
 属性动画，顾名思义就是会调整view的属性值
 
@@ -22,6 +39,8 @@ Property animation 和 View animation
 
 > AnimatorSet 严格意义上来说不是属性动画，只能算动画包装器
 
+> AnimatorInflater 用于从xml文件加载动画
+
 
 ### 一、属性动画的使用方式
 1) 通过xml的方式配置
@@ -29,13 +48,16 @@ Property animation 和 View animation
 需要在res/路径下创建animator文件存放动画xml文件（参考：res/animator/filename）
 xml文件必须要有一个<set>或者 <objectAnimator>或者<valueAnimator>作为根标签
 如果有多个动画需要组合，用<set>作为根标签，来包容其他标签
+
 (1) <set>
 
     <set> 相当于实体类 AnimatorSet (android.animation.AnimatorSet)
     <set> 的 android:ordering 属性表示：指定该集合中动画的播放顺序(together 一起 ; sequentially 顺序)
+
 (2) <objectAnimator>
 
     对应的实体类是 ObjectAnimator(android.animation.ObjectAnimator)
+
 ```text
    android:propertyName
            
@@ -50,6 +72,7 @@ xml文件必须要有一个<set>或者 <objectAnimator>或者<valueAnimator>作�
 (4) <animator>
 
     对应的实体类 ValueAnimator(android.animation.ValueAnimator)
+
 ```text
     android:valueTo
            
@@ -61,7 +84,9 @@ xml文件必须要有一个<set>或者 <objectAnimator>或者<valueAnimator>作�
 
     android:valueType
 ```
+
 (4) 例子
+
 ```xml
 <!--    res/animator/property_animator.xml-->
     <set android:ordering="sequentially">
@@ -83,7 +108,9 @@ xml文件必须要有一个<set>或者 <objectAnimator>或者<valueAnimator>作�
             android:valueTo="1f"/>
     </set>
 ```
+
 (5) 动画加载
+
 ```java
     AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(myContext,R.animator.property_animator);
         set.setTarget(myObject);
@@ -100,6 +127,7 @@ xml文件必须要有一个<set>或者 <objectAnimator>或者<valueAnimator>作�
 ```
 
 ### 二、属性动画的监听器
+
 Animator 中有 AnimatorPauseListener AnimatorListener
 
 AnimatorSet 继承于Animator 那么也有AnimatorPauseListener AnimatorListener
@@ -146,3 +174,4 @@ AnimatorUpdateListener接口
         }
 ```
 
+### [更详细的内容](https://github.com/twentyfourKing/learnandroid/tree/master/learn_animation/readme)
