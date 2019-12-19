@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/vector_sample_1" >
+    <target
+        android:name="rotationGroup"
+        android:animation="@animator/vector_target_1" />
+    <target
+        android:name="v"
+        android:animation="@animator/vector_target_2" />
+</animated-vector>

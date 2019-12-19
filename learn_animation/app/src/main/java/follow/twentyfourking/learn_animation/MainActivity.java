@@ -20,15 +20,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void jumpToProperty(View view){
-        startActivity(new Intent(this,PropertyAnimationActivity.class));
-        TextView textView;
-        Animation animation ;
-        animation.setAnimationListener();
-        textView.startAnimation();
+    public void jumpToProperty(View view) {
+        startActivity(new Intent(this, PropertyAnimationActivity.class));
+    }
 
-
-
+    public void jumpToView(View view) {
+        startActivity(new Intent(this, ViewAnimationActivity.class));
     }
 
 }

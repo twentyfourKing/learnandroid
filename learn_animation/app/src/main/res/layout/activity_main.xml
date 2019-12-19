@@ -26,28 +26,14 @@
             android:padding="10dp"
             android:text="View animator 视图动画" />
 
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="Frame 帧动画" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="Tween 补间动画" />
-        </LinearLayout>
+            android:gravity="center"
+            android:padding="10dp"
+            android:onClick="jumpToView"
+            android:text="Frame 帧动画 | Tween 补间动画" />
 
     </LinearLayout>
 

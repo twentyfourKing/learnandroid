@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- oneshot  如果为true 动画执行完后，停在最有一帧-->
+<!-- 如果执行动画停止stop() 那么就会停留在当前帧-->
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false">
+    <item android:drawable="@drawable/leopard_1" android:duration="500" />
+    <item android:drawable="@drawable/leopard_2" android:duration="500" />
+    <item android:drawable="@drawable/leopard_3" android:duration="500" />
+    <item android:drawable="@drawable/leopard_4" android:duration="500" />
+    <item android:drawable="@drawable/leopard_5" android:duration="500" />
+    <item android:drawable="@drawable/leopard_6" android:duration="500" />
+    <item android:drawable="@drawable/leopard_7" android:duration="500" />
+    <item android:drawable="@drawable/leopard_8" android:duration="500" />
+</animation-list>
