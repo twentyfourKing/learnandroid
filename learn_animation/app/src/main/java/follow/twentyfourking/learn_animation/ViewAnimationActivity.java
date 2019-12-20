@@ -83,6 +83,9 @@ public class ViewAnimationActivity extends AppCompatActivity {
         frameAnimationByCode();
     }
 
+    /**
+     * 帧动画通过xml
+     */
     private void frameAnimationByXml() {
         //1) 用代码配置
 //        mImg1.setBackgroundResource(R.drawable.frame_list_animation);
@@ -91,6 +94,9 @@ public class ViewAnimationActivity extends AppCompatActivity {
         mAnimationDrawable = (AnimationDrawable) (mImg1.getBackground());
     }
 
+    /**
+     * 帧动画通过代码
+     */
     private void frameAnimationByCode() {
         mAnimationDrawable2 = new AnimationDrawable();
         mAnimationDrawable2.addFrame(getResources().getDrawable(R.drawable.leopard_8), 500);
@@ -104,6 +110,9 @@ public class ViewAnimationActivity extends AppCompatActivity {
         mImg2.setBackgroundDrawable(mAnimationDrawable2);
     }
 
+    /**
+     * 补间动画通过代码
+     */
     private void tweenAnimationByCode() {
         TranslateAnimation translateAnimation = new TranslateAnimation(0, 50, 0, 0);
         translateAnimation.setRepeatMode(Animation.REVERSE);
@@ -140,6 +149,9 @@ public class ViewAnimationActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * 补间动画通过xml构建
+     */
     private void tweenAnimationByXml() {
         Animation animation1 = AnimationUtils.loadAnimation(this, R.anim.animation_alpha);
         mTvAlpha.startAnimation(animation1);
@@ -174,7 +186,7 @@ public class ViewAnimationActivity extends AppCompatActivity {
             mAnimationDrawable2.start();
         } else if (id == R.id.img_1) {
             mAnimationDrawable.stop();//停止帧动画
-        } else if (id == R.id.tv_animation_2) {
+        } else if (id == R.id.tv_animation_2) {//执行矢量动画
             Drawable drawable1 = mImg3.getDrawable();
             if (drawable1 instanceof Animatable) {
                 ((Animatable) drawable1).start();
@@ -189,7 +201,7 @@ public class ViewAnimationActivity extends AppCompatActivity {
                 }
 
             }
-        } else if (id == R.id.tv_animation_tween) {
+        } else if (id == R.id.tv_animation_tween) {//执行补间动画
             startTweenAnimation();
         }
     }
