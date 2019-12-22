@@ -37,20 +37,37 @@
 
     </LinearLayout>
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:padding="10dp"
-        android:text="Property animator 属性动画" />
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
+            android:text="Property animator 属性动画" />
+
+        <TextView
+            android:onClick="jumpToProperty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="ObjectAnimator | ValueAnimator|..." />
+    </LinearLayout>
 
     <TextView
-        android:onClick="jumpToProperty"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="ObjectAnimator | ValueAnimator|..." />
+        android:text="测试webp动画"
+        android:onClick="jumpToWebp"
+        />
+
+
+
+
 
 </LinearLayout>

@@ -28,4 +28,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, ViewAnimationActivity.class));
     }
 
+    public void jumpToWebp(View view){
+        startActivity(new Intent(this,SampleActivity.class));
+    }
+
 }
