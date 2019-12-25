@@ -1,0 +1,247 @@
+
+显示机制
+====
+
+### 从Choreographer说起
+
+> 使用单列模式，并且其初始化在本地线程中
+
+会提供两种源的Choreographer的实例( VSYNC_SOURCE_APP , VSYNC_SOURCE_SURFACE_FLINGER )
+
+```java
+    //初始化
+    private static final ThreadLocal<Choreographer> sThreadInstance =
+            new ThreadLocal<Choreographer>() {
+        @Override
+        protected Choreographer initialValue() {
+            Looper looper = Looper.myLooper();
+            if (looper == null) {
+                throw new IllegalStateException("The current thread must have a looper!");
+            }
+            Choreographer choreographer = new Choreographer(looper, VSYNC_SOURCE_APP);
+            if (looper == Looper.getMainLooper()) {
+                mMainInstance = choreographer;
+            }
+            return choreographer;
+        }
+    };
+    
+    //构造方法
+    private Choreographer(Looper looper, int vsyncSource) {
+        mLooper = looper;
+        mHandler = new FrameHandler(looper);
+        mDisplayEventReceiver = USE_VSYNC
+                ? new FrameDisplayEventReceiver(looper, vsyncSource)
+                : null;
+        mLastFrameTimeNanos = Long.MIN_VALUE;
+
+        mFrameIntervalNanos = (long)(1000000000 / getRefreshRate());
+
+        mCallbackQueues = new CallbackQueue[CALLBACK_LAST + 1];
+        for (int i = 0; i <= CALLBACK_LAST; i++) {
+            mCallbackQueues[i] = new CallbackQueue();
+        }
+        // b/68769804: For low FPS experiments.
+        setFPSDivisor(SystemProperties.getInt(ThreadedRenderer.DEBUG_FPS_DIVISOR, 1));
+    }
+    
+    //暴露实例
+    public static Choreographer getInstance() {
+        return sThreadInstance.get();
+    }
+```
+构造方法中的类说明
+```text
+    FrameHandler 构建处理消息的Handler
+    FrameDisplayEventReceiver 
+    CallbackQueue 回调队列
+```
+
+针对DisplayEventReceiver的简单说明
+```text
+    DisplayEventReceiver是一个抽象类
+    它的作用就是给java应用层提供接收底层事件（垂直同步信号）的入口，
+    
+    通过native方法向底层注册信号监听，当信号到来时，通过jni手段回调到java层，
+    并实际调用到DisplayEventReceiver的具体实现类的覆写方法中，进行后续逻辑处理
+    
+    提供的本地方如下：
+    private static native long nativeInit(WeakReference<DisplayEventReceiver> receiver,
+            MessageQueue messageQueue, int vsyncSource);
+    private static native void nativeDispose(long receiverPtr)
+    private static native void nativeScheduleVsync(long receiverPtr);
+```
+### Choreographer 中建立时钟监听并响应时钟信号的流程说明
+
+1） 初始化（looper和使用类型vsyncSource）
+```java
+    public DisplayEventReceiver(Looper looper, int vsyncSource) {
+        if (looper == null) {
+            throw new IllegalArgumentException("looper must not be null");
+        }
+
+        mMessageQueue = looper.getQueue();
+        mReceiverPtr = nativeInit(new WeakReference<DisplayEventReceiver>(this), mMessageQueue,
+                vsyncSource);
+
+        mCloseGuard.open("dispose");
+    }
+```
+2）预定信号的监听
+```java
+    public void scheduleVsync() {
+        if (mReceiverPtr == 0) {
+            Log.w(TAG, "Attempted to schedule a vertical sync pulse but the display event "
+                    + "receiver has already been disposed.");
+        } else {
+            nativeScheduleVsync(mReceiverPtr);
+        }
+    }
+```
+
+3）响应垂直信号
+
+当预定了脉冲信号的监听后，底层脉冲信号到来时，回调到java层，onVsync调到具体的实现类的覆写方法
+```java
+    private void dispatchVsync(long timestampNanos, long physicalDisplayId, int frame) {
+        onVsync(timestampNanos, physicalDisplayId, frame);
+    }
+```
+
+进入实现类的具体逻辑，接下来就是根据这个时钟回调，开始帧处理doFrame()，开始具体的回调逻辑
+```java
+    ublic void onVsync(long timestampNanos, long physicalDisplayId, int frame) {
+       ...省略部分代码
+
+        mTimestampNanos = timestampNanos;
+        mFrame = frame;
+        Message msg = Message.obtain(mHandler, this);
+        msg.setAsynchronous(true);
+        mHandler.sendMessageAtTime(msg, timestampNanos / TimeUtils.NANOS_PER_MS);
+    }
+```
+
+上面描述的从构建Choreographer开始到，注册时钟信号的监听，再到具体的逻辑处理，可以用下面的流程图简单概括
+
+[!display event 简图说明 ](https://github.com/twentyfourKing/learnandroid/blob/master/learn_animation/readme/img/img_4.png)
+
+
+### 响应时钟信号后
+
+从Choreographer的doFrame方法开始
+
+```java
+    //doFrame中分类处理回调逻辑的代码段
+    try {
+            Trace.traceBegin(Trace.TRACE_TAG_VIEW, "Choreographer#doFrame");
+            AnimationUtils.lockAnimationClock(frameTimeNanos / TimeUtils.NANOS_PER_MS);
+            
+            //处理输入
+            mFrameInfo.markInputHandlingStart();
+            doCallbacks(Choreographer.CALLBACK_INPUT, frameTimeNanos);
+            
+            //处理动画
+            mFrameInfo.markAnimationsStart();
+            doCallbacks(Choreographer.CALLBACK_ANIMATION, frameTimeNanos);
+            doCallbacks(Choreographer.CALLBACK_INSETS_ANIMATION, frameTimeNanos);
+
+            //处理遍历
+            mFrameInfo.markPerformTraversalsStart();
+            doCallbacks(Choreographer.CALLBACK_TRAVERSAL, frameTimeNanos);
+
+            doCallbacks(Choreographer.CALLBACK_COMMIT, frameTimeNanos);
+        } finally {
+            AnimationUtils.unlockAnimationClock();
+            Trace.traceEnd(Trace.TRACE_TAG_VIEW);
+        }
+```
+```text
+    FrameInfo mFrameInfo = new FrameInfo();
+    mFrameInfo.markInputHandlingStart();
+    
+    public void markInputHandlingStart() {
+        frameInfo[HANDLE_INPUT_START] = System.nanoTime();
+    }
+    public long[] frameInfo = new long[9];
+    根据处理类型，保存当前时间(数量级是微秒)
+```
+#### (1) 对回调类型的分析
+
+>有5中类型，这里也反应了当初构建的回调队列数组的大小是5
+
+```java
+    CallbackQueue[] mCallbackQueues = new CallbackQueue[CALLBACK_LAST + 1];
+```
+
+1. Choreographer.CALLBACK_INPUT 类型
+```text
+    
+    (ViewRootImpl.java)
+    void scheduleConsumeBatchedInput() {
+        if (!mConsumeBatchedInputScheduled) {
+            mConsumeBatchedInputScheduled = true;
+            mChoreographer.postCallback(Choreographer.CALLBACK_INPUT,
+                    mConsumedBatchedInputRunnable, null);
+        }
+    }
+    (BatchedInputEventReceiver.java)
+    private void scheduleBatchedInput() {
+        if (!mBatchedInputScheduled) {
+            mBatchedInputScheduled = true;
+            mChoreographer.postCallback(Choreographer.CALLBACK_INPUT, mBatchedInputRunnable, null);
+        }
+    }
+```
+2. Choreographer.CALLBACK_ANIMATION 类型
+```text
+    
+    启动属性动画
+    其一 AnimatorHandler.java -> postFrameCallback()
+    public void postFrameCallback(FrameCallback callback) {
+        postFrameCallbackDelayed(callback, 0);
+    }
+```
+3. Choreographer.CALLBACK_INSETS_ANIMATION 类型
+```text
+    
+    (InsetsController.java)
+    public void scheduleApplyChangeInsets() {
+        if (!mAnimCallbackScheduled) {
+            mViewRoot.mChoreographer.postCallback(Choreographer.CALLBACK_INSETS_ANIMATION,
+                    mAnimCallback, null /* token*/);
+            mAnimCallbackScheduled = true;
+        }
+    }
+    
+```
+4. Choreographer.CALLBACK_TRAVERSAL 类型
+
+```text
+    (ViewRootImpl.java)
+    void scheduleTraversals() {
+        if (!mTraversalScheduled) {
+            mTraversalScheduled = true;
+            mTraversalBarrier = mHandler.getLooper().getQueue().postSyncBarrier();
+            mChoreographer.postCallback(
+                    Choreographer.CALLBACK_TRAVERSAL, mTraversalRunnable, null);
+            if (!mUnbufferedInputDispatch) {
+                scheduleConsumeBatchedInput();
+            }
+            notifyRendererOfFramePending();
+            pokeDrawLockIfNeeded();
+        }
+    }
+```
+5. Choreographer.CALLBACK_COMMIT 类型
+```text
+
+    (AnimatorHandler.java)
+    public void postCommitCallback(Runnable runnable) {
+        mChoreographer.postCallback(Choreographer.CALLBACK_COMMIT, runnable, null);
+    }
+```
+
+
+
+
+## 关于具体需要使用到时钟信号的功能逻辑看后续具体分析

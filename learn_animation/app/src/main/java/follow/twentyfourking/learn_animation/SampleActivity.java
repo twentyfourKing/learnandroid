@@ -3,6 +3,7 @@ package follow.twentyfourking.learn_animation;
 import android.graphics.drawable.Animatable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Display;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
@@ -35,6 +36,7 @@ public class SampleActivity extends AppCompatActivity {
         mImg.setController(controller);
 
 
+
 //        Animatable animatable = mImg.getController().getAnimatable();
 //        if (animatable != null) {
 //            animatable.start();
@@ -43,4 +45,5 @@ public class SampleActivity extends AppCompatActivity {
 //        }
 
     }
+
 }
