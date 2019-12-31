@@ -4,6 +4,7 @@ import android.graphics.drawable.Animatable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.View;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
@@ -27,23 +28,22 @@ public class SampleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sample);
         ButterKnife.bind(this);
 
+        //播放webp动效
+//        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/raw/logo" );
+//        DraweeController controller = Fresco.newDraweeControllerBuilder()
+//                .setUri(uri)
+//                .setAutoPlayAnimations(true)//设置是否自动播放
+//                .build();
+//        mImg.setController(controller);
 
-        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/raw/logo" );
-        DraweeController controller = Fresco.newDraweeControllerBuilder()
-                .setUri(uri)
-                .setAutoPlayAnimations(true)//设置是否自动播放
-                .build();
-        mImg.setController(controller);
+    }
 
+    public void do_invalidate(View view){
+        view.invalidate();
+    }
 
-
-//        Animatable animatable = mImg.getController().getAnimatable();
-//        if (animatable != null) {
-//            animatable.start();
-//            // later
-////            animatable.stop();
-//        }
-
+    public void do_requestLayout(View view){
+        view.requestLayout();
     }
 
 }
