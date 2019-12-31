@@ -1,7 +1,7 @@
 invalidate()与requestLayout()的区别
 ====
 
-在View中启动scheduleTraversals()的常用方法
+## 在View中启动scheduleTraversals()的常用方法
 
 1 ）requestLayout()
 
@@ -11,9 +11,9 @@ invalidate()与requestLayout()的区别
 
 4 ) postInvalidateDelayed(long delayMilliseconds)
 
-tips:  postInvalidate()实际也是执行的postInvalidateDelayed(long delayMilliseconds)，它们用于在非主线程启动scheduleTraversals()，它背后的逻辑就是，在ViewRootImpl中通过Handler，将线程切换到了UI线程，通过消息的方式，最后还是调用的
-view的invalidate()方法
-
+tips:  postInvalidate()实际也是执行的postInvalidateDelayed(long delayMilliseconds)，
+它们用于在非主线程启动scheduleTraversals()，它背后的逻辑就是，在ViewRootImpl中通过Handler，
+将线程切换到了UI线程，通过消息的方式，最后还是调用的view的invalidate()方法
 
 下面主要分析下requestLayout() 和 invalidate() 流程的区别
 
@@ -31,8 +31,7 @@ view.requestLayout()
             ViewRootImpl viewRoot = getViewRootImpl();
             if (viewRoot != null && viewRoot.isInLayout()) {
                 if (!viewRoot.requestLayoutDuringLayout(this)) {
-                    //不执行的逻辑：
-                    //在执行performLayout的逻辑，并且正在进行view的布局逻辑时
+                    //正在执行performLayout的逻辑，并且正在进行view的布局逻辑时
                     //就不会响应这次布局的请求
                     return;
                 }
@@ -53,15 +52,20 @@ view.requestLayout()
 ```
 > 说明1
 
-设置flag
-
-PFLAG_FORCE_LAYOUT 是为了满足测量要求
-
-这个flag的具体使用在
+设置flag PFLAG_FORCE_LAYOUT 标识了需要执行测量,这个flag的具体使用在
 
 ```java
      public final void measure(int widthMeasureSpec, int heightMeasureSpec){
         ...
+         final boolean specChanged = widthMeasureSpec != mOldWidthMeasureSpec
+                        || heightMeasureSpec != mOldHeightMeasureSpec;
+         final boolean isSpecExactly = MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.EXACTLY
+                && MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.EXACTLY;
+         final boolean matchesSpecSize = getMeasuredWidth() == MeasureSpec.getSize(widthMeasureSpec)
+                && getMeasuredHeight() == MeasureSpec.getSize(heightMeasureSpec);
+         final boolean needsLayout = specChanged
+                && (sAlwaysRemeasureExactly || !isSpecExactly || !matchesSpecSize);
+            //上面这段逻辑是判断 view的大小是否有改变,如果有改变，那么也会进行测量        
         
          final boolean forceLayout = (mPrivateFlags & PFLAG_FORCE_LAYOUT) == PFLAG_FORCE_LAYOUT;
           if (forceLayout || needsLayout) {
@@ -98,9 +102,11 @@ PFLAG_FORCE_LAYOUT 是为了满足测量要求
 
 > 说明2
 
-1、首先这里的mParent 就是当前view的父布局，会一直向上寻找view的父布局并调用requestLayout()，最后DecorView的mParent就是ViewRootImpl，即最后调用的就是是ViewRootImpl.requestLayout()
+1、首先这里的mParent 就是当前view的父布局，会一直向上寻找view的父布局并调用requestLayout()，
+最后DecorView的mParent就是ViewRootImpl，即最后调用的是ViewRootImpl.requestLayout()
 
-2、满足 !mParent.isLayoutRequested()，其实就是ViewRootImpl中的mLayoutRequested需要为false，而该值被修改为false是在performLayout()逻辑中
+2、满足 !mParent.isLayoutRequested()，其实就是ViewRootImpl中的mLayoutRequested需要为false，
+而该值被修改为false是在performLayout()逻辑中
 
 3、当满足了条件后，执行ViewRootImpl.requestLayout()
 ```java
