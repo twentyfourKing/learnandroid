@@ -140,38 +140,37 @@ AnimatorListener接口
 ```java
     public static interface AnimatorListener {
     
-            default void onAnimationStart(Animator animation, boolean isReverse) {
-                onAnimationStart(animation);
-            }
-
-            default void onAnimationEnd(Animator animation, boolean isReverse) {
-                onAnimationEnd(animation);
-            }
-
-            void onAnimationStart(Animator animation);
-
-            void onAnimationEnd(Animator animation);
-
-            void onAnimationCancel(Animator animation);
-
-            void onAnimationRepeat(Animator animation);
+        default void onAnimationStart(Animator animation, boolean isReverse) {
+            onAnimationStart(animation);
         }
+
+        default void onAnimationEnd(Animator animation, boolean isReverse) {
+            onAnimationEnd(animation);
+        }
+
+        void onAnimationStart(Animator animation);
+
+        void onAnimationEnd(Animator animation);
+
+        void onAnimationCancel(Animator animation);
+
+        void onAnimationRepeat(Animator animation);
+    }
 ```
 AnimatorPauseListener接口
 ```java
     public static interface AnimatorPauseListener {
 
-            void onAnimationPause(Animator animation);
+        void onAnimationPause(Animator animation);
 
-            void onAnimationResume(Animator animation);
-        }
+        void onAnimationResume(Animator animation);
+    }
 ```
 AnimatorUpdateListener接口
 ```java
     public static interface AnimatorUpdateListener {
-            void onAnimationUpdate(ValueAnimator animation);
-    
-        }
+       void onAnimationUpdate(ValueAnimator animation);
+    }
 ```
 
 ### [更详细的内容](https://github.com/twentyfourKing/learnandroid/tree/master/learn_animation/readme)

@@ -1,4 +1,4 @@
-invalidate()与requestLayout()的区别
+invalidate与requestLayout的区别
 ====
 
 ## 在View中启动scheduleTraversals()的常用方法
@@ -89,12 +89,12 @@ view.requestLayout()
              onLayout(changed, l, t, r, b);
              ...
              
-             mPrivateFlags &= ~PFLAG_LAYOUT_REQUIRED;//清除布局要求flag
+             mPrivateFlags &= ~PFLAG_LAYOUT_REQUIRED;//清除 布局flag
              }
              
             ...
             
-            mPrivateFlags &= ~PFLAG_FORCE_LAYOUT;//清除布局要求flag
+            mPrivateFlags &= ~PFLAG_FORCE_LAYOUT;
             ...
     }
      
@@ -102,13 +102,13 @@ view.requestLayout()
 
 > 说明2
 
-1、首先这里的mParent 就是当前view的父布局，会一直向上寻找view的父布局并调用requestLayout()，
-最后DecorView的mParent就是ViewRootImpl，即最后调用的是ViewRootImpl.requestLayout()
+1、mParent 就是当前view的父布局。此逻辑会一直向上寻找view的父布局并调用requestLayout()，
+最后DecorView的mParent即ViewRootImpl，执行ViewRootImpl.requestLayout()
 
-2、满足 !mParent.isLayoutRequested()，其实就是ViewRootImpl中的mLayoutRequested需要为false，
+2、!mParent.isLayoutRequested()，其实就是ViewRootImpl中的mLayoutRequested需要为false，
 而该值被修改为false是在performLayout()逻辑中
 
-3、当满足了条件后，执行ViewRootImpl.requestLayout()
+3、满足条件后，执行ViewRootImpl.requestLayout()
 ```java
     public void requestLayout() {
         if (!mHandlingLayoutInLayoutRequest) {
@@ -122,7 +122,6 @@ view.requestLayout()
 
 > 结论 requestLayout()方法会触发traversal相关的流程，并根据设置的flag，执行测量、布局、绘制操作
 
-
 ## invalidate()
 
 view.invalidate()
@@ -134,18 +133,9 @@ view.invalidate()
 
     void invalidateInternal(int l, int t, int r, int b, boolean invalidateCache,
             boolean fullInvalidate) {
-        if (mGhostView != null) {
-            mGhostView.invalidate(true);
-            return;
-        }
-
-        if (skipInvalidate()) {
-            return;
-        }
-
+        ...
         // Reset content capture caches
         mCachedContentCaptureSession = null;
-
         if ((mPrivateFlags & (PFLAG_DRAWN | PFLAG_HAS_BOUNDS)) == (PFLAG_DRAWN | PFLAG_HAS_BOUNDS)
                 || (invalidateCache && (mPrivateFlags & PFLAG_DRAWING_CACHE_VALID) == PFLAG_DRAWING_CACHE_VALID)
                 || (mPrivateFlags & PFLAG_INVALIDATED) != PFLAG_INVALIDATED
@@ -154,14 +144,11 @@ view.invalidate()
                 mLastIsOpaque = isOpaque();
                 mPrivateFlags &= ~PFLAG_DRAWN;
             }
-
             mPrivateFlags |= PFLAG_DIRTY;
-
             if (invalidateCache) {
                 mPrivateFlags |= PFLAG_INVALIDATED;
                 mPrivateFlags &= ~PFLAG_DRAWING_CACHE_VALID;
             }
-
             // Propagate the damage rectangle to the parent view.
             final AttachInfo ai = mAttachInfo;
             final ViewParent p = mParent;
@@ -170,7 +157,6 @@ view.invalidate()
                 damage.set(l, t, r, b);
                 p.invalidateChild(this, damage);/说明1
             }
-
             // Damage the entire projection receiver, if necessary.
             if (mBackground != null && mBackground.isProjected()) {
                 final View receiver = getProjectionReceiver();
@@ -183,15 +169,12 @@ view.invalidate()
 ```
 > 说明1
 
-进入父布局的invalidateChild()，不断的向view树顶进行操作，求得父容器和子View需要重绘的区域，求得 (dirty)。
+进入父布局的invalidateChild()并不断请求父布局的该逻辑，在过程中计算父容器和子View需要重绘的区域，求得 (dirty)。
 
 最后进入ViewRootImpl中的invalidateChild()
-
-最后进入
 ```java
      private void invalidateRectOnScreen(Rect dirty) {
         final Rect localDirty = mDirty;
-
         // Add the new dirty rect to the current one
         localDirty.union(dirty.left, dirty.top, dirty.right, dirty.bottom);//说明
         // Intersect with the bounds of the window to skip
@@ -203,16 +186,20 @@ view.invalidate()
             localDirty.setEmpty();
         }
         if (!mWillDrawSoon && (intersected || mIsAnimating)) {
-            scheduleTraversals();
+            scheduleTraversals();//说明2
         }
     }
 ```
-> 说明
+> 说明1
 
-1) union合并计算需要处理的视图区域;
-2) mWillDrawSoon 表示已经经历过了测量、布局，即将进行绘制操作
-3) scheduleTraversals();启动Traversal
+union合并计算需要处理的视图区域
 
-但是因为并未设置，测量标识，同时也就没有布局标识，也就不会执行，测量和布局，直接进入绘制操作
+> 说明2
+
+1) mWillDrawSoon 表示已经历测量和布局，即将进行绘制操作
+
+2) scheduleTraversals();启动遍历
+
+未设置测量标识，就不会执行测量和布局，直接进入绘制操作。但是当view的大小被改变了，依旧会执行测量和布局。
 
 > 总结 invalidate()会启动traversal，但是只会执行绘制操作
