@@ -1,4 +1,4 @@
-package follow.twentyfourking.learn_view;
+package follow.twentyfourking.learn_view.activity;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +16,7 @@ import java.lang.reflect.Field;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import follow.twentyfourking.learn_view.R;
 import follow.twentyfourking.learn_view.view.MyLinearLayout1;
 import follow.twentyfourking.learn_view.view.MyTextView1;
 import follow.twentyfourking.learn_view.view.MyTextView2;

@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import follow.twentyfourking.learn_view.Constant;
+import follow.twentyfourking.learn_view.common.Constant;
 
 public class MyTextView2 extends TextView {
     public MyTextView2(Context context) {

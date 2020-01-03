@@ -1,4 +1,4 @@
-package follow.twentyfourking.learn_view;
+package follow.twentyfourking.learn_view.activity;
 
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -15,10 +16,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTouch;
+import follow.twentyfourking.learn_view.R;
 
-import static follow.twentyfourking.learn_view.Constant.TAG_TEST_LOCATION;
+import static follow.twentyfourking.learn_view.common.Constant.TAG_TEST_LOCATION;
 
-public class TestActivity2 extends AppCompatActivity {
+public class TestActivity2 extends AppCompatActivity implements View.OnTouchListener {
     @BindView(R.id.tv_test_motion)
     TextView mTvMotion;
 
@@ -34,20 +36,33 @@ public class TestActivity2 extends AppCompatActivity {
 
     private void initView() {
         mTouchSlop = ViewConfiguration.get(this).getScaledTouchSlop();
+//        ViewTreeObserver treeObserver = getWindow().getDecorView().getViewTreeObserver();
+//        treeObserver.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+//            @Override
+//            public boolean onPreDraw() {
+//                return false;
+//            }
+//        });
+//        treeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//            @Override
+//            public void onGlobalLayout() {
+//
+//            }
+//        });
+
+        mTvMotion.setOnTouchListener(this);
     }
 
-    @OnTouch({
-            R.id.tv_test_motion
-    })
+    @Override
     public boolean onTouch(View v, MotionEvent event) {
         float lastX = 0;
         float lastY = 0;
         int action = event.getAction();
         if (action == MotionEvent.ACTION_DOWN) {
-            //相对当前父布局
+            //相对view自身（0,0）
             Log.d(TAG_TEST_LOCATION, " 当前按下的位置 x = " + event.getX() + " y = "
                     + event.getY() + " --> by getX和getY");
-            //相对屏幕
+            //相对屏幕（0，0）
             Log.d(TAG_TEST_LOCATION, " 当前按下的位置 x = " + event.getRawX() + " y = "
                     + event.getRawY() + " --> by getRawX和getRawY");
             lastX = event.getX();

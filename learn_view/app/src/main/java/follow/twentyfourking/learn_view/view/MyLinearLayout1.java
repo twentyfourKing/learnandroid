@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 
-import follow.twentyfourking.learn_view.Constant;
+import follow.twentyfourking.learn_view.common.Constant;
 
 public class MyLinearLayout1 extends LinearLayout {
     public MyLinearLayout1(Context context) {
