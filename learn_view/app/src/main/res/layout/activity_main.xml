@@ -6,18 +6,21 @@
 
     <TextView
         android:id="@+id/tv_test_1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/TextViewTheme"
         android:gravity="left"
         android:padding="10dp"
-        android:text="requestLayout和invalidate探索界面"
-        android:textColor="#ff0000" />
+        android:text="requestLayout和invalidate探索界面" />
 
     <TextView
         android:id="@+id/tv_test_2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/TextViewTheme"
         android:text="view位置信息探索界面"
+        android:padding="10dp"
+        />
+    <TextView
+        android:id="@+id/tv_test_3"
+        style="@style/TextViewTheme"
+        android:text="关于view事件的探索"
         android:padding="10dp"
         />
 </LinearLayout>

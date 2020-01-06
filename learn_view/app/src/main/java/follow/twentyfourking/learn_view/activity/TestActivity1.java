@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.blankj.utilcode.util.ScreenUtils;
@@ -16,6 +17,7 @@ import java.lang.reflect.Field;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Optional;
 import follow.twentyfourking.learn_view.R;
 import follow.twentyfourking.learn_view.view.MyLinearLayout1;
 import follow.twentyfourking.learn_view.view.MyTextView1;
@@ -37,10 +39,9 @@ public class TestActivity1 extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_test_1);
         ButterKnife.bind(this);
     }
-
 
     @OnClick({
             R.id.tv_1,

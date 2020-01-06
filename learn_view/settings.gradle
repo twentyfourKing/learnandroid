@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':lib_for_demo'
 rootProject.name='learn_view'

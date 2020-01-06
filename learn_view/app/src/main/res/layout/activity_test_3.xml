@@ -4,22 +4,38 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <follow.twentyfourking.learn_view.view.TrackerLinearLayout
         android:id="@+id/ll_tracker"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="@color/colorPrimary"
-        android:orientation="vertical">
+        android:gravity="center_horizontal">
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:background="@android:color/transparent"
-            android:gravity="center"
+            android:background="@android:drawable/list_selector_background"
+            android:padding="10dp"
             android:text="测试速度监听区域"
             android:textColor="@android:color/white" />
+    </follow.twentyfourking.learn_view.view.TrackerLinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/tv_start_demo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@android:drawable/list_selector_background"
+            android:padding="10dp"
+            android:text="启动一个demo界面" />
     </LinearLayout>
 
 </LinearLayout>

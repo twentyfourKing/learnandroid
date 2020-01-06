@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">lib_for_demo</string>
+    <string name="data_count">数据量（%1$d）</string>
+</resources>
