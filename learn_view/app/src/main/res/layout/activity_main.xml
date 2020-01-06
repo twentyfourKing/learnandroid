@@ -23,4 +23,10 @@
         android:text="关于view事件的探索"
         android:padding="10dp"
         />
+    <TextView
+        android:id="@+id/tv_test_4"
+        style="@style/TextViewTheme"
+        android:text="关于view的绘制"
+        android:padding="10dp"
+        />
 </LinearLayout>

@@ -24,7 +24,8 @@ public class MainActivity extends AppCompatActivity  {
     @OnClick({
             R.id.tv_test_1,
             R.id.tv_test_2,
-            R.id.tv_test_3
+            R.id.tv_test_3,
+            R.id.tv_test_4
     })
     public void onClick(View view){
         int id = view.getId();
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity  {
             startActivity(new Intent(this, TestActivity2.class));
         }else if(id == R.id.tv_test_3){
             startActivity(new Intent(this, TestActivity3.class));
+        }else if(id == R.id.tv_test_4){
+            startActivity(new Intent(this, TestActivity4.class));
         }
     }
 }

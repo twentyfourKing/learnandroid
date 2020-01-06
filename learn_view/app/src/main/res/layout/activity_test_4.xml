@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <follow.twentyfourking.learn_view.view.DrawView
+            android:id="@+id/draw_1"
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/holo_blue_dark" />
+
+        <follow.twentyfourking.learn_view.view.DrawView
+            android:id="@+id/draw_2"
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/holo_blue_dark" />
+
+        <follow.twentyfourking.learn_view.view.DrawView
+            android:id="@+id/draw_3"
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/holo_blue_dark" />
+
+        <follow.twentyfourking.learn_view.view.DrawView
+            android:id="@+id/draw_4"
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/holo_blue_dark" />
+
+        <follow.twentyfourking.learn_view.view.DrawView
+            android:id="@+id/draw_5"
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/holo_blue_dark" />
+
+        <follow.twentyfourking.learn_view.view.DrawView
+            android:id="@+id/draw_6"
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/holo_blue_dark" />
+
+        <follow.twentyfourking.learn_view.view.DrawView
+            android:id="@+id/draw_7"
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+
+    </LinearLayout>
+</ScrollView>
