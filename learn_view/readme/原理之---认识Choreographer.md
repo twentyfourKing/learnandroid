@@ -1,8 +1,5 @@
-
-显示机制
+Choreographer
 ====
-
-### 从Choreographer说起
 
 > 使用单列模式，并且其初始化在本地线程中
 
