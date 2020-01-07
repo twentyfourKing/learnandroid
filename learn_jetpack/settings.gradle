@@ -1,0 +1,2 @@
+include ':app', ':demo_lifecycle'
+rootProject.name='learn_jetpack'
