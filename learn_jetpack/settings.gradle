@@ -1,2 +1,2 @@
-include ':app', ':demo_lifecycle'
+include ':app', ':demo_lifecycle', ':wan_android_by_jetpack', ':base'
 rootProject.name='learn_jetpack'

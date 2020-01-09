@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Jetpack-wanandroid</string>
+    <string name="tab1">首页</string>
+    <string name="tab2">体系</string>
+    <string name="tab3">展示</string>
+    <string name="tab4">我的</string>
+</resources>
