@@ -13,3 +13,5 @@
 
 4、对生命周期的处理
 
+[更多细节](https://github.com/twentyfourKing/learnandroid/tree/master/learn_open_source/learn_picture_load/readme)
+
