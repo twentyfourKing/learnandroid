@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
+import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.BaseRequestOptions;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -27,8 +28,13 @@ public class MainActivity extends AppCompatActivity {
 //        Glide.with(this).load(url).into(mImg);
 //        GlideApp.with(this).load(url).into(mImg);
 //        Glide.with(this).asBitmap().load(url).into(mImg);
-        Glide.with(this).load(url).into(mImg);
-        BaseRequestOptions options = new RequestOptions().error().centerCrop().placeholder()
-        Glide.with(this).load(url).apply(new Base)
+//        Glide.with(this).load(url).into(mImg);
+//        BaseRequestOptions options = new RequestOptions().error().centerCrop().placeholder()
+//        Glide.with(this).load(url).apply(new Base)
+
+        RequestManager requestManager = Glide.with(this);
+        requestManager.onDestroy();
+
+        requestManager.load(url).into(mImg);
     }
 }
