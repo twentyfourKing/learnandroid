@@ -1,0 +1,30 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin:'application'
+
+group = 'org.greenrobot'
+archivesBaseName = 'greendao-example-generator'
+version = '1.4.0-SNAPSHOT'
+
+sourceCompatibility = "7"
+targetCompatibility = "7"
+
+// If your IDE fails to run generation (NoClassDefFoundError), run it using gradle
+mainClassName = "follow.twentyfourking.greendao_generator_example.ExampleDaoGenerator"
+
+dependencies {
+    compile 'org.greenrobot:greendao-generator:3.2.2'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+            srcDir 'src-gen'
+        }
+    }
+}
+
+artifacts {
+    archives jar
+}

@@ -1,0 +1,167 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+
+
+    defaultConfig {
+        //defaultConfig 指定Android插件应用于所有构建变量的变量属性的默认值
+        //会被productFlavors的配置所覆盖
+        applicationId "follow.twentyfourking.learing_dsl"
+        minSdkVersion 15
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    adbOptions {//指定Android调试桥接器(ADB)的APK安装选项。
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            //是否压缩还没有被压缩的png图片资源(会增加构架世间。默认是false)
+            crunchPngs true
+            debuggable false//是否生成可以debug的apk
+            embedMicroApp false//是否可以链接Android Wear应用程序
+//            javaCompileOptions{
+//                //配置java的编译选项
+//            }
+            jniDebuggable false // 是否可以调试 jni代码
+//            manifestPlaceholders{
+//                //配置manifest 清单
+//            }
+            minifyEnabled false //是否启用删除未使用的java代码
+            multiDexEnabled true //是否为该变体启用Multi-Dex
+//            multiDexKeepFile //设定编译到主dex的类
+//            multiDexKeepProguard  //文本文件和附加的ProGuard规则，用于确定哪些类被编译到主dex文件中
+//            name  // 指定编译的名字
+//            proguardFiles //指定插件应该使用的ProGuard配置文件
+            renderscriptDebuggable false // 是否将构建类型配置为生成具有可调试呈现脚本代码的apk。
+            renderscriptOptimLevel 7 //renderscript编译器使用的优化级别。
+            shrinkResources false //是否启用收缩未使用资源。默认是假的;
+            useProguard false //指定是否始终使用ProGuard进行代码和资源收缩。
+            //默认情况下，当您通过将minifyEnabled设置为true来启用代码收缩时，Android插件使用ProGuard。如果将此属性设置为false, Android插件将使用R8
+            zipAlignEnabled true //是否为该构建类型启用zipalign  对齐操作，减少内存压力
+        }
+    }
+
+    compileOptions {
+//        encoding  // Java源文件编码格式
+//        incremental
+        //java源代码的语言级别。
+        sourceCompatibility 1.8
+        //类似于Gradle Java插件所使用的。支持的格式有: "1.6"  1.6  JavaVersion.Version_1_6  "Version_1_6"
+        targetCompatibility 1.8
+        // 生成的Java字节码的版本。类似于Gradle Java插件所使用的。支持的格式有: "1.6"  1.6  JavaVersion.Version_1_6  "Version_1_6"
+
+    }
+    dataBinding {
+//        addDefaultAdapters //是否添加默认数据绑定适配器
+//        enabled //是否启用数据绑定
+//        enabledForTests //是否为测试项目运行数据绑定代码生成
+//        version //要使用的数据绑定版本
+    }
+
+    dexOptions {
+//        additionalParameters //要传递给dx的附加参数列表
+//        javaMaxHeapSize //指定调用dx时的-Xmx值。示例值为“2048m”
+//        jumboMode //启用dx(——force-jumbo)中的jumbo模式
+//        keepRuntimeAnnotatedClasses //将所有带有运行时注释的类保存在遗留multidex的主dex中。
+        //默认情况下，这是启用的，并且解决了在使用java.lang.reflect.Field时会导致应用程序崩溃的问题。在较老的android版本上使用getdeclaredannotation。
+        //对于不使用反射且需要在主dex中占用更多空间的应用程序，可以禁用此功能
+//        maxProcessCount //Total Memory = maxProcessCount * javaMaxHeapSize
+//        preDexLibraries //是否使用predex库。这可以改进增量构建，但是干净的构建可能会更慢
+//        threadCount //运行dx时要使用的线程数。默认为4
+    }
+    externalNativeBuild {
+        // Encapsulates your CMake build configurations.
+        // For ndk-build, instead use the ndkBuild block.
+        cmake {
+            // Specifies a path to your CMake build script that's
+            // relative to the build.gradle file.
+            path "CMakeLists.txt"
+            buildStagingDirectory "./outputs/cmake"
+            version "3.7.1"
+        }
+        ndkBuild {//指定使用CMake或ndk-build的外部本机生成选项。
+            buildStagingDirectory "./outputs/ndk-build"
+            path "Android.mk"
+        }
+    }
+
+    flavorDimensions 'api', 'version'
+    //When using Android plugin 3.0.0 and higher,
+    // each flavor must belong to a flavorDimensions value.
+    productFlavors {//指定此项目的产品风味维度的名称。
+        demo {
+            // Assigns this product flavor to the 'version' flavor dimension.
+            dimension 'version'
+        }
+
+        full {
+            dimension 'version'
+        }
+
+        minApi24 {
+            // Assigns this flavor to the 'api' dimension.
+            dimension 'api'
+            minSdkVersion '24'
+            versionNameSuffix "-minApi24"
+        }
+
+        minApi21 {
+            dimension "api"
+            minSdkVersion '21'
+            versionNameSuffix "-minApi21"
+        }
+    }
+    jacoco {//配置用于脱机检测和覆盖报告的JaCoCo版本。
+        version "<jacoco-version>"
+    }
+    lintOptions {//指定lint工具的选项。
+
+    }
+//        ndkDirectory //Gradle在这个项目中使用的Android NDK的路径
+    packagingOptions {//指定选项和规则，这些选项和规则决定将Android插件包中的哪些文件放入APK中。
+
+    }
+//        sdkDirectory //Gradle在这个项目中使用的Android SDK的路径。
+
+    signingConfigs { //封装可以应用于BuildType和ProductFlavor配置的签名配置
+//            keyAlias //Key alias used when signing.
+//            keyPassword //Key password used when signing.
+//            storeFile //Store file used when signing.
+//            storePassword  //Store password used when signing.
+//            storeType  //Store type used when signing.
+//            v1SigningEnabled  //Whether signing using JAR Signature Scheme (aka v1 signing) is enabled.
+//            v2SigningEnabled //Whether signing using APK Signature Scheme v2 (aka v2 signing) is enabled.
+    }
+    sourceSets {// AndroidSourceSet表示一组逻辑的Java、aidl和RenderScript资源，以及Android和非Android (Java风格)资源
+
+    }
+    splits {//指定用于构建多个APK或APK分割的配置.要生成APK分割，还需要将generatePureSplits设置为true。
+        // 然而，生成APK split是一个正在酝酿的特性，
+        // 它要求您将BaseFlavor.minSdkVersion()设置为21或更高，目前仅在发布Android即时应用程序时支持。
+    }
+    testOptions {
+        //https://developer.android.com/studio/test/index.html#test_options
+        //指定Android插件应该如何运行本地和仪表化测试的选项。
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    implementation 'com.android.tools.build:gradle:3.5.0'
+}

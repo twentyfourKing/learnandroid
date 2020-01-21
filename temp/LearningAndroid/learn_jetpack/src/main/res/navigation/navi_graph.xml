@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navi_graph"
+    app:startDestination="@id/blankFragment">
+    <fragment
+        android:id="@+id/blankFragment"
+        android:name="follow.twentyfourking.learn_jetpack.BlankFragment"
+        android:label="fragment_blank"
+        tools:layout="@layout/fragment_blank" />
+    <activity
+        android:id="@+id/mainActivity3"
+        android:name="follow.twentyfourking.learn_jetpack.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+    <navigation
+        android:id="@+id/navigation7"
+        app:startDestination="@id/blankFragment2" >
+        <fragment
+            android:id="@+id/blankFragment2"
+            android:name="follow.twentyfourking.learn_jetpack.BlankFragment2"
+            android:label="fragment_blank_fragment2"
+            tools:layout="@layout/fragment_blank_fragment2">
+            <action
+                android:id="@+id/action_blankFragment2_to_blankFragment"
+                app:destination="@id/blankFragment" />
+        </fragment>
+    </navigation>
+</navigation>

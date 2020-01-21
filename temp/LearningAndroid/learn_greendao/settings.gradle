@@ -1,0 +1,1 @@
+include ':app', ':greendao_generator_example', ':greendao_use_generator', ':greendao_use_annotation'
