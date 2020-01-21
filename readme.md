@@ -11,5 +11,7 @@
 
 3、[Gradle板块](https://github.com/twentyfourKing/learnandroid/tree/master/learn_gradle_dependency)
 
+4、[第三方框架分析板块](https://github.com/twentyfourKing/learnandroid/tree/master/learn_open_source)
+
 
 持续提交中...
