@@ -1,5 +1,5 @@
 
-[响应生命周期的概述](https://github.com/twentyfourKing/learnandroid/blob/master/learn_open_source/learn_picture_load/readme/img/img_4.png)
+![响应生命周期的概述](https://github.com/twentyfourKing/learnandroid/blob/master/learn_open_source/learn_picture_load/readme/img/img_4.png)
 
 在继承于 AppCompatActivity 中使用 Glide.with(this)的方式构建 RequestManager 流程如下：
 
